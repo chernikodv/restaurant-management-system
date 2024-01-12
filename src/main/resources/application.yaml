@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /restaurant
+
+spring:
+  flyway:
+    user: root
+    schemas: flyway
+    password: changeme
+    table: flyway_schema_history
+    locations: classpath:db/migration
+
+  datasource:
+    username: root
+    password: changeme
+    url: jdbc:mysql://localhost:3306/restaurant_db
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: false
+        generate_statistics: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} - [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    root: INFO
+    org:
+      hibernate:
+        type: TRACE
+
+jwt:
+  secret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+  expiration: 1800000

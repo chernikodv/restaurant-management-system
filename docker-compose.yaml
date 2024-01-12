@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  restaurant_management_system_mysql:
+    image: mysql:8.0
+    ports:
+      - "8081:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_DATABASE: restaurant_db
+    container_name: restaurant_management_system_mysql
+
+  restaurant_management_system_backend:
+    image: restaurant_management_system_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - restaurant_management_system_mysql
+    links:
+      - restaurant_management_system_mysql
+    restart: on-failure
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://restaurant_management_system_mysql:3306/restaurant_db
+    container_name: restaurant_management_system_backend
